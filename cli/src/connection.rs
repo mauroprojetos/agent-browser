@@ -360,8 +360,16 @@ pub fn ensure_daemon(
     let mut daemon_paths = vec![
         exe_dir.join("daemon.js"),
         exe_dir.join("../dist/daemon.js"),
+        exe_dir.join("../../dist/daemon.js"), // Development path from cli/target/debug
         PathBuf::from("dist/daemon.js"),
+        PathBuf::from("node_modules/agent-browser/dist/daemon.js"),
     ];
+
+    // Also check current directory
+    if let Ok(cwd) = env::current_dir() {
+        daemon_paths.push(cwd.join("dist/daemon.js"));
+        daemon_paths.push(cwd.join("daemon.js"));
+    }
 
     // Check AGENT_BROWSER_HOME environment variable
     if let Ok(home) = env::var("AGENT_BROWSER_HOME") {

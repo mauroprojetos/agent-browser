@@ -41,6 +41,28 @@ Then use via `npx` or `package.json` scripts:
 npx agent-browser open example.com
 ```
 
+### Windows Installation
+
+On Windows, `agent-browser` uses a native binary for best performance. If you encounter the error `Daemon failed to start (socket: ...)`, follow these steps:
+
+#### 1. Configure Environment Variable
+
+The CLI may have trouble locating the browser engine (`daemon.js`) depending on how it was installed. Set the project base path:
+
+```powershell
+# Temporary in current session:
+$env:AGENT_BROWSER_HOME="C:\Path\To\agent-browser"
+
+# Permanent for current user:
+[System.Environment]::SetEnvironmentVariable('AGENT_BROWSER_HOME', 'C:\Path\To\agent-browser', 'User')
+```
+
+#### 2. Permissions
+
+Ensure your terminal has write permissions to `%USERPROFILE%\.agent-browser`, where daemon control files are created.
+
+---
+
 ### Homebrew (macOS)
 
 ```bash
